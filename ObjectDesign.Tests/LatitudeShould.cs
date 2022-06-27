@@ -4,11 +4,13 @@ namespace ObjectDesign.Tests
 {
     public class latitude_should
     {
-        [Fact]
-        public void be_in_a_valid_range()
+        [Theory]
+        [InlineData(-91)]
+        [InlineData(91)]
+        public void be_in_a_valid_range(int value)
         {
-            Action latitude = () => Latitude.FromScalar(-190);
-            latitude.Should().Throw<ArgumentOutOfRangeException>().WithMessage("Latitude must be in range [-90; 90] (Parameter 'value')\r\nActual value was -190.");
+            Action latitude = () => Latitude.FromScalar(value);
+            latitude.Should().Throw<ArgumentOutOfRangeException>().WithMessage($"Latitude must be in range [-90; 90] (Parameter 'value')\r\nActual value was {value}.");
         }
     }
 }
